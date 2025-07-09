@@ -4,7 +4,7 @@ set -e
 
 # Check if we're in the right directory by looking for package.json with mcp-linear
 if [ ! -f "package.json" ] || ! grep -q "mcp-linear" package.json; then
-    echo "❌ Please run this script from the mcp-linear directory."
+    echo "❌ Please run this script from the mcp-linear root directory."
     echo "   Example:"
     echo "     cd path/to/mcp-linear"
     echo "     ./setup-mcp-linear.sh"
