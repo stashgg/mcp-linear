@@ -42,8 +42,22 @@ class LinearMcpServer {
               status: {
                 type: "string",
                 description:
-                  "Optional status to filter tickets (e.g. 'active', 'completed')",
-                enum: ["active", "completed", "canceled"],
+                  "Optional specific status to filter tickets (e.g. 'Todo', 'In Progress')",
+              },
+              excludeStatuses: {
+                type: "array",
+                items: {
+                  type: "string",
+                },
+                description:
+                  "Optional list of statuses to exclude (e.g. ['Implemented', 'Verified', 'Canceled'])",
+              },
+              maxPriority: {
+                type: "number",
+                description:
+                  "Optional maximum priority level to include (0=No priority, 1=Urgent, 2=High, 3=Medium, 4=Low)",
+                minimum: 0,
+                maximum: 4,
               },
               limit: {
                 type: "number",
@@ -67,26 +81,30 @@ class LinearMcpServer {
         );
       }
 
+      const apiKey = process.env.LINEAR_API_KEY;
+      if (!apiKey) {
+        throw new McpError(
+          ErrorCode.InvalidParams,
+          "LINEAR_API_KEY environment variable is required",
+        );
+      }
+
       const { handleRequest } = await import(
         "./requests/getTicketsRequestHandler.js"
       );
-      return handleRequest(
-        request.params.arguments as {
-          apiKey: string;
-          status?: "active" | "completed" | "canceled";
+      return handleRequest({
+        apiKey,
+        ...(request.params.arguments as {
+          status?: string;
+          excludeStatuses?: string[];
+          maxPriority?: number;
           limit?: number;
-        },
-      );
+        }),
+      });
     });
   }
 
   async run(): Promise<void> {
-    //dotenv.config();
-    const apiKey = process.env.LINEAR_API_KEY;
-    if (!apiKey) {
-      console.error("LINEAR_API_KEY environment variable is required");
-      process.exit(1);
-    }
     const transport = new StdioServerTransport();
     await this.server.connect(transport);
     console.error("Linear MCP Server running on stdio");
