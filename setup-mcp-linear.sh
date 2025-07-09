@@ -2,14 +2,11 @@
 
 set -e
 
-# Require the script to be run from the tools/mcp-linear directory
-EXPECTED_DIR="mcp-linear"
-CUR_DIR="$(basename "$PWD")"
-
-if [ "$CUR_DIR" != "$EXPECTED_DIR" ]; then
-    echo "❌ Please run this script from the tools/mcp-linear directory."
+# Check if we're in the right directory by looking for package.json with mcp-linear
+if [ ! -f "package.json" ] || ! grep -q "mcp-linear" package.json; then
+    echo "❌ Please run this script from the mcp-linear directory."
     echo "   Example:"
-    echo "     cd tools/mcp-linear"
+    echo "     cd path/to/mcp-linear"
     echo "     ./setup-mcp-linear.sh"
     exit 1
 fi
@@ -79,5 +76,5 @@ echo "4. Test the setup:"
 echo "   - Open Cursor's Composer"
 echo "   - Try: 'Show me my active Linear tickets'"
 echo ""
-echo "📚 For more information, see: tools/mcp-linear/README.md"
+echo "📚 For more information, see: README.md"
 echo ""

@@ -11,7 +11,19 @@ A Model Context Protocol (MCP) server that enables Linear issue management direc
 
 ## 🚀 Quick Setup
 
-1. **Open a terminal and run:**
+### Option 1: Git Submodule (Recommended)
+
+If you want to use this as a git submodule in your project:
+
+1. **Add as git submodule:**
+
+   ```bash
+   # From your project root (e.g., pie-mono)
+   git submodule add https://github.com/stashgg/mcp-linear tools/mcp-linear
+   git submodule update --init --recursive
+   ```
+
+2. **Run the setup script:**
 
    ```bash
    cd tools/mcp-linear
@@ -20,6 +32,22 @@ A Model Context Protocol (MCP) server that enables Linear issue management direc
 
    > If you get a permission error, run:  
    > `chmod +x setup-mcp-linear.sh`
+
+### Option 2: Standalone Setup
+
+If you've cloned this repository directly:
+
+1. **Navigate to the mcp-linear directory:**
+
+   ```bash
+   cd path/to/mcp-linear
+   ./setup-mcp-linear.sh
+   ```
+
+   > If you get a permission error, run:  
+   > `chmod +x setup-mcp-linear.sh`
+
+### Final Configuration Steps
 
 2. **Follow the script's instructions:**
    - It will install the MCP tool globally.
@@ -78,6 +106,18 @@ A Model Context Protocol (MCP) server that enables Linear issue management direc
 
 3. **Set your Linear API key and configure Cursor as above.**
 
+## 🔄 Updating Git Submodule
+
+If you're using this as a git submodule and want to update to the latest version:
+
+```bash
+cd tools/mcp-linear
+git pull origin main
+cd ../..
+git add tools/mcp-linear
+git commit -m "Update mcp-linear submodule"
+```
+
 ## Usage
 
 Once configured, you can use the Linear MCP in Cursor's Composer:
@@ -94,10 +134,12 @@ Once configured, you can use the Linear MCP in Cursor's Composer:
   Make sure your global Yarn bin directory is in your PATH (`yarn global bin`)
 - **API key issues:**  
   Make sure you've set `LINEAR_API_KEY` in your environment
+- **Submodule issues:**  
+  Run `git submodule update --init --recursive` to ensure submodules are properly initialized
 
 ## Development
 
-- Make changes in `tools/mcp-linear`
+- Make changes in the mcp-linear directory
 - Add tests for new functionality
 - Update this README if needed
 
