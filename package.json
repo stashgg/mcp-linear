@@ -1,11 +1,11 @@
 {
-  "name": "mcp-linear",
-  "version": "0.0.1",
-  "description": "",
+  "name": "@stashgg/mcp-linear",
+  "version": "1.0.0",
+  "description": "Linear MCP server - enables Linear issue management directly from Cursor",
   "main": "build/index.js",
   "type": "module",
   "bin": {
-    "mcp-postman": "./build/index.js"
+    "mcp-linear": "./build/index.js"
   },
   "scripts": {
     "build": "tsc && chmod +x build/index.js",
@@ -13,11 +13,16 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "husky",
-    "test": "vitest"
+    "test": "vitest",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mcp",
-    "linear"
+    "linear",
+    "stashgg",
+    "development-tools",
+    "cursor",
+    "issue-management"
   ],
   "author": "",
   "license": "ISC",
