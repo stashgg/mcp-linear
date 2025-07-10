@@ -7,7 +7,7 @@ updates:
     versioning-strategy: "auto"
     labels:
       - "dependencies"
-      - "npm"
+      - "pnpm"
     commit-message:
       prefix: "chore"
       include: "scope"

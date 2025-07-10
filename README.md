@@ -26,7 +26,7 @@ If you want to use this as a git submodule in your project:
 2. **Run the setup script:**
 
    ```bash
-   cd tools/mcp-linear
+   cd path/to/mcp-linear
    ./setup-mcp-linear.sh
    ```
 
@@ -61,7 +61,7 @@ If you've cloned this repository directly:
    ```
 
    - To get your API key, visit [StashGG Linear API Settings](https://linear.app/stashgg/settings/account/security)
-   - (Optional) Add this line to your `~/.zshrc` or `~/.bashrc` for persistence.
+   - (Strongly recommended) Add this line to your `~/.zshrc` or `~/.bashrc` for persistence.
 
 4. **Configure Cursor:**
    - Open Cursor
@@ -94,14 +94,14 @@ If you've cloned this repository directly:
 1. **Install dependencies and build:**
 
    ```bash
-   yarn install
-   yarn build
+   pnpm install
+   pnpm build
    ```
 
 2. **Install the package globally:**
 
    ```bash
-   yarn global add file:.
+   pnpm add -g file:.
    ```
 
 3. **Set your Linear API key and configure Cursor as above.**
@@ -131,7 +131,7 @@ Once configured, you can use the Linear MCP in Cursor's Composer:
 - **Permission denied:**  
   Run `chmod +x setup-mcp-linear.sh`
 - **mcp-linear: command not found:**  
-  Make sure your global Yarn bin directory is in your PATH (`yarn global bin`)
+  Make sure your global pnpm bin directory is in your PATH (`pnpm bin -g`)
 - **API key issues:**  
   Make sure you've set `LINEAR_API_KEY` in your environment
 - **Submodule issues:**  
