@@ -4,10 +4,21 @@ A Model Context Protocol (MCP) server that enables Linear issue management direc
 
 ## Features
 
-- Fetch Linear tickets assigned to the authenticated user
-- Filter tickets by status (active, completed, canceled)
-- Limit the number of results returned
-- Seamless integration with Cursor's AI assistant
+- **Read Operations:**
+  - Fetch Linear tickets assigned to the authenticated user
+  - Filter tickets by status (active, completed, canceled)
+  - Limit the number of results returned
+  - Get all teams to find team IDs for creating tickets
+
+- **Write Operations:**
+  - Create new Linear tickets/issues
+  - Automatically attach `agent-created` label for tracking
+  - Support for priority, assignee, labels, and workflow states
+
+- **Seamless Integration:**
+  - Works directly in Cursor's AI assistant
+  - Automatic team discovery
+  - Full error handling and validation
 
 ## 🚀 Quick Setup
 
@@ -50,9 +61,9 @@ If you've cloned this repository directly:
 ### Final Configuration Steps
 
 2. **Follow the script's instructions:**
-   - It will install the MCP tool globally.
-   - It will help you set up your Linear API key.
-   - It will ensure your MCP config file exists.
+   - It will install dependencies with pnpm and build the package
+   - It will install the MCP tool globally with npm (more reliable for global tools)
+   - It will help you set up your Linear API key and MCP config
 
 3. **Set your Linear API key:**
 
@@ -78,18 +89,23 @@ If you've cloned this repository directly:
        }
      }
      ```
-   - (Optional, not recommended for security) You can add your API key here:
-     ```json
-     "env": {
-       "LINEAR_API_KEY": "your-linear-api-key"
-     }
-     ```
 
 5. **Test the setup:**
+   - Restart Cursor
    - Open Cursor's Composer
-   - Try: "Show me my active Linear tickets"
+   - Try: "Show me my Linear tickets"
+   - Try: "Show me all my Linear teams"
+   - Try: "Create a new Linear ticket titled 'Test ticket' in the Engineering team"
 
 ## 🛠️ Manual Setup (if you prefer not to use the script)
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm (for global installation)
+- pnpm (for local development)
+
+### Installation
 
 1. **Install dependencies and build:**
 
@@ -98,10 +114,10 @@ If you've cloned this repository directly:
    pnpm build
    ```
 
-2. **Install the package globally:**
+2. **Install the package globally with npm:**
 
    ```bash
-   pnpm add -g file:.
+   npm install -g .
    ```
 
 3. **Set your Linear API key and configure Cursor as above.**
@@ -113,6 +129,7 @@ If you're using this as a git submodule and want to update to the latest version
 ```bash
 cd tools/mcp-linear
 git pull origin main
+./setup-mcp-linear.sh  # Rebuild and reinstall
 cd ../..
 git add tools/mcp-linear
 git commit -m "Update mcp-linear submodule"
@@ -122,26 +139,65 @@ git commit -m "Update mcp-linear submodule"
 
 Once configured, you can use the Linear MCP in Cursor's Composer:
 
+### Read Operations:
+
 - "Show me my active Linear tickets"
 - "Get my completed tickets from Linear"
 - "Show me 5 of my active Linear tickets"
+- "Show me all my Linear teams"
+
+### Write Operations:
+
+- "Create a new Linear ticket titled 'Fix login bug' in the Engineering team"
+- "Create a high priority ticket titled 'Performance issue' with description 'App is slow on mobile devices'"
+- "Create a ticket assigned to John Doe titled 'Review PR'"
+
+### Auto-Labeling:
+
+All tickets created through the MCP automatically get an `agent-created` label for easy tracking and filtering.
+
+## 🔧 Development
+
+### Local Development Setup:
+
+```bash
+pnpm install
+pnpm build
+```
+
+### Testing Changes:
+
+```bash
+pnpm build
+npm install -g .  # Reinstall globally
+# Restart Cursor to pick up changes
+```
+
+### Package Management:
+
+- **Local development**: Uses `pnpm` for faster installs and better dependency management
+- **Global installation**: Uses `npm` for better compatibility with global tools and MCP
 
 ## Troubleshooting
 
 - **Permission denied:**  
   Run `chmod +x setup-mcp-linear.sh`
 - **mcp-linear: command not found:**  
-  Make sure your global pnpm bin directory is in your PATH (`pnpm bin -g`)
+  Make sure your npm global bin directory is in your PATH (`npm bin -g`)
 - **API key issues:**  
   Make sure you've set `LINEAR_API_KEY` in your environment
 - **Submodule issues:**  
   Run `git submodule update --init --recursive` to ensure submodules are properly initialized
+- **Tools not showing up in Cursor:**
+  - Completely quit and restart Cursor (Cmd+Q on Mac)
+  - Check MCP status in Settings → Tools & Integrations → MCP Tools
+  - Verify the linear server shows as connected
 
-## Development
+## Available Tools
 
-- Make changes in the mcp-linear directory
-- Add tests for new functionality
-- Update this README if needed
+1. **`get-linear-tickets`** - Get tickets assigned to you
+2. **`get-linear-teams`** - Get all teams (helpful for creating tickets)
+3. **`create-linear-ticket`** - Create new tickets with auto-labeling
 
 ## License
 
