@@ -14,31 +14,37 @@ fi
 echo "🚀 Setting up Linear MCP Server..."
 echo ""
 
-# Check if pnpm is installed
+# Check if pnpm is installed for local development
 if ! command -v pnpm &>/dev/null; then
     echo "❌ pnpm is not installed. Please install pnpm first:"
     echo "   npm install -g pnpm"
     exit 1
 fi
 
-# Install dependencies and build the package
-echo "📦 Installing dependencies..."
+# Check if npm is available for global installation
+if ! command -v npm &>/dev/null; then
+    echo "❌ npm is not installed. Please install Node.js and npm first."
+    exit 1
+fi
+
+# Install dependencies and build the package using pnpm
+echo "📦 Installing dependencies with pnpm..."
 pnpm install
 
 echo "🔨 Building the package..."
 pnpm build
 
-# Install the package globally using pnpm
-echo "📦 Installing mcp-linear globally from $(pwd) ..."
-pnpm add -g .
+# Install the package globally using npm (more reliable for global installations)
+echo "📦 Installing mcp-linear globally with npm from $(pwd) ..."
+npm install -g .
 
 # Verify installation
 if command -v mcp-linear &>/dev/null; then
     echo "✅ MCP Linear server installed successfully"
 else
     echo "❌ Installation failed - mcp-linear command not found"
-    echo "   Try running: pnpm list -g --depth=0 | grep mcp-linear"
-    echo "   And ensure your pnpm global bin directory is in your PATH"
+    echo "   Try running: npm list -g --depth=0 | grep mcp-linear"
+    echo "   And ensure your npm global bin directory is in your PATH"
     exit 1
 fi
 
@@ -66,15 +72,23 @@ echo ""
 echo "2. Add to your shell profile (~/.bashrc, ~/.zshrc, etc.):"
 echo "   export LINEAR_API_KEY='your-linear-api-key'"
 echo ""
-echo "3. Configure in Cursor:"
-echo "   - Open Cursor Settings"
-echo "   - Navigate to Tools & Integrations > MCP Tools"
-echo "   - Click '+ Add Custom MCP'"
-echo "   - Edit .cursor/mcp.json as described in the README"
+echo "3. Configure Cursor MCP:"
+echo "   - Open Cursor Settings → Tools & Integrations → MCP Tools"
+echo "   - Click 'Add Custom MCP' (opens ~/.cursor/mcp.json)"
+echo "   - Add the Linear server configuration:"
+echo '   {'
+echo '     "mcpServers": {'
+echo '       "linear": {'
+echo '         "command": "mcp-linear",'
+echo '         "type": "stdio"'
+echo '       }'
+echo '     }'
+echo '   }'
 echo ""
-echo "4. Test the setup:"
-echo "   - Open Cursor's Composer"
-echo "   - Try: 'Show me my active Linear tickets'"
+echo "4. Restart Cursor and test:"
+echo "   - 'Show me my Linear tickets'"
+echo "   - 'Show me all my Linear teams'"
+echo "   - 'Create a new Linear ticket titled \"Test\" in the Engineering team'"
 echo ""
-echo "📚 For more information, see: README.md"
-echo ""
+echo "Note: We use pnpm for local development and npm for global installation."
+echo "      This provides the best compatibility for MCP usage."
