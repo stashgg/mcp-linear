@@ -1,9 +1,10 @@
 {
   "name": "@stashgg/mcp-linear",
   "version": "1.0.0",
-  "description": "Linear MCP server - enables Linear issue management directly from Cursor",
+  "description": "Linear MCP server - enables Linear issue management directly from Cursor (intended for git submodule usage)",
   "main": "build/index.js",
   "type": "module",
+  "private": true,
   "bin": {
     "mcp-linear": "./build/index.js"
   },
@@ -13,8 +14,7 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "husky",
-    "test": "vitest",
-    "prepublishOnly": "npm run build"
+    "test": "vitest"
   },
   "keywords": [
     "mcp",

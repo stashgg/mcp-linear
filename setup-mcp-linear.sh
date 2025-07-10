@@ -14,31 +14,31 @@ fi
 echo "🚀 Setting up Linear MCP Server..."
 echo ""
 
-# Check if yarn is installed
-if ! command -v yarn &>/dev/null; then
-    echo "❌ Yarn is not installed. Please install yarn first:"
-    echo "   npm install -g yarn"
+# Check if pnpm is installed
+if ! command -v pnpm &>/dev/null; then
+    echo "❌ pnpm is not installed. Please install pnpm first:"
+    echo "   npm install -g pnpm"
     exit 1
 fi
 
 # Install dependencies and build the package
 echo "📦 Installing dependencies..."
-yarn install
+pnpm install
 
 echo "🔨 Building the package..."
-yarn build
+pnpm build
 
-# Install the package globally using npm (more reliable for local packages)
+# Install the package globally using pnpm
 echo "📦 Installing mcp-linear globally from $(pwd) ..."
-npm install -g .
+pnpm add -g .
 
 # Verify installation
 if command -v mcp-linear &>/dev/null; then
     echo "✅ MCP Linear server installed successfully"
 else
     echo "❌ Installation failed - mcp-linear command not found"
-    echo "   Try running: npm list -g --depth=0 | grep mcp-linear"
-    echo "   And ensure your npm global bin directory is in your PATH"
+    echo "   Try running: pnpm list -g --depth=0 | grep mcp-linear"
+    echo "   And ensure your pnpm global bin directory is in your PATH"
     exit 1
 fi
 
