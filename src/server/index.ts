@@ -78,6 +78,14 @@ class LinearMcpServer {
           },
         },
         {
+          name: "get-linear-users",
+          description: "Get all users from Linear workspace/organization",
+          inputSchema: {
+            type: "object",
+            properties: {},
+          },
+        },
+        {
           name: "create-linear-ticket",
           description: "Create a new Linear ticket/issue",
           inputSchema: {
@@ -157,7 +165,18 @@ class LinearMcpServer {
           const { handleRequest } = await import(
             "./requests/getTeamsRequestHandler.js"
           );
-          return handleRequest({ apiKey });
+          return handleRequest({
+            apiKey,
+          });
+        }
+
+        case "get-linear-users": {
+          const { handleRequest } = await import(
+            "./requests/getUsersRequestHandler.js"
+          );
+          return handleRequest({
+            apiKey,
+          });
         }
 
         case "create-linear-ticket": {
