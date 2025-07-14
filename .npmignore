@@ -31,4 +31,4 @@ docs/
 coverage/
 
 # Lock files
-pnpm-lock.yaml
+yarn.lock

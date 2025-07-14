@@ -7,7 +7,7 @@ updates:
     versioning-strategy: "auto"
     labels:
       - "dependencies"
-      - "pnpm"
+      - "yarn"
     commit-message:
       prefix: "chore"
       include: "scope"

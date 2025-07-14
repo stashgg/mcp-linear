@@ -14,10 +14,19 @@ fi
 echo "🚀 Setting up Linear MCP Server..."
 echo ""
 
-# Check if pnpm is installed for local development
-if ! command -v pnpm &>/dev/null; then
-    echo "❌ pnpm is not installed. Please install pnpm first:"
-    echo "   npm install -g pnpm"
+# Check Node.js version
+NODE_VERSION=$(node --version | cut -d'v' -f2 | cut -d'.' -f1)
+if [ "$NODE_VERSION" -lt 20 ]; then
+    echo "❌ Node.js version 20 or higher is required. Current version: $(node --version)"
+    echo "   If you're using nvm, run: nvm use 20"
+    echo "   Or install Node 20: nvm install 20 && nvm use 20"
+    exit 1
+fi
+
+# Check if yarn is installed for local development
+if ! command -v yarn &>/dev/null; then
+    echo "❌ yarn is not installed. Please install yarn first:"
+    echo "   npm install -g yarn"
     exit 1
 fi
 
@@ -27,12 +36,12 @@ if ! command -v npm &>/dev/null; then
     exit 1
 fi
 
-# Install dependencies and build the package using pnpm
-echo "📦 Installing dependencies with pnpm..."
-pnpm install
+# Install dependencies and build the package using yarn
+echo "📦 Installing dependencies with yarn..."
+yarn install
 
 echo "🔨 Building the package..."
-pnpm build
+yarn build
 
 # Install the package globally using npm (more reliable for global installations)
 echo "📦 Installing mcp-linear globally with npm from $(pwd) ..."
@@ -90,5 +99,5 @@ echo "   - 'Show me my Linear tickets'"
 echo "   - 'Show me all my Linear teams'"
 echo "   - 'Create a new Linear ticket titled \"Test\" in the Engineering team'"
 echo ""
-echo "Note: We use pnpm for local development and npm for global installation."
+echo "Note: We use yarn for local development and npm for global installation."
 echo "      This provides the best compatibility for MCP usage."

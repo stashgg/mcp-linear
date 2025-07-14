@@ -62,7 +62,7 @@ If you've cloned this repository directly:
 ### Final Configuration Steps
 
 2. **Follow the script's instructions:**
-   - It will install dependencies with pnpm and build the package
+   - It will install dependencies with yarn and build the package
    - It will install the MCP tool globally with npm (more reliable for global tools)
    - It will help you set up your Linear API key and MCP config
 
@@ -102,17 +102,17 @@ If you've cloned this repository directly:
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js (v20 or higher)
 - npm (for global installation)
-- pnpm (for local development)
+- yarn (for local development)
 
 ### Installation
 
 1. **Install dependencies and build:**
 
    ```bash
-   pnpm install
-   pnpm build
+   yarn install
+   yarn build
    ```
 
 2. **Install the package globally with npm:**
@@ -162,21 +162,21 @@ All tickets created through the MCP automatically get an `agent-created` label f
 ### Local Development Setup:
 
 ```bash
-pnpm install
-pnpm build
+yarn install
+yarn build
 ```
 
 ### Testing Changes:
 
 ```bash
-pnpm build
+yarn build
 npm install -g .  # Reinstall globally
 # Restart Cursor to pick up changes
 ```
 
 ### Package Management:
 
-- **Local development**: Uses `pnpm` for faster installs and better dependency management
+- **Local development**: Uses `yarn` for faster installs and better dependency management
 - **Global installation**: Uses `npm` for better compatibility with global tools and MCP
 
 ## Troubleshooting
@@ -187,6 +187,14 @@ npm install -g .  # Reinstall globally
   Make sure your npm global bin directory is in your PATH (`npm bin -g`)
 - **API key issues:**  
   Make sure you've set `LINEAR_API_KEY` in your environment
+- **Node version incompatibility:**  
+  This project requires Node.js 20 or higher. If you're using nvm:
+  ```bash
+  nvm use 20
+  # or install if not available
+  nvm install 20
+  nvm use 20
+  ```
 - **Submodule issues:**  
   Run `git submodule update --init --recursive` to ensure submodules are properly initialized
 - **Tools not showing up in Cursor:**
