@@ -11,29 +11,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8.15.4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18.19.0"
-          cache: "pnpm"
-          cache-dependency-path: "pnpm-lock.yaml"
+          node-version: "20.19.0"
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
 
       - name: Verify lockfile
         run: |
-          if [ ! -f "pnpm-lock.yaml" ]; then
-            echo "pnpm-lock.yaml not found!"
+          if [ ! -f "yarn.lock" ]; then
+            echo "yarn.lock not found!"
             exit 1
           fi
-          echo "pnpm-lock.yaml found"
-          cat pnpm-lock.yaml
+          echo "yarn.lock found"
+          head -20 yarn.lock
 
       - name: Install dependencies
-        run: pnpm install
+        run: yarn install
 
       - name: Run ESLint
-        run: pnpm lint
+        run: yarn lint
