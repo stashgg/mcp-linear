@@ -30,8 +30,9 @@ If you want to use this as a git submodule in your project:
 
    ```bash
    # From your project root (e.g., pie-mono)
-   git submodule add https://github.com/stashgg/mcp-linear tools/mcp-linear
-   git submodule update --init --recursive
+   # Note: The first command is only necessary if the submodule is not yet setup in the repo
+   git submodule add https://github.com/stashgg/mcp-linear path/to/mcp-linear
+   git submodule update --init --recursive # initializes submodule in your local setup
    ```
 
 2. **Run the setup script:**
