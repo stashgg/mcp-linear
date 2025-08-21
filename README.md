@@ -1,3 +1,25 @@
+# ⚠️ DEPRECATED - Linear MCP Server
+
+**This repository has been deprecated and is no longer maintained.**
+
+## Recommended Alternative
+
+Use the **official Linear MCP integration** available directly through Cursor:
+- Check the [Cursor MCP Servers Page](https://docs.cursor.com/en/tools/mcp) for the latest Linear integration
+- The official integration provides more robust features and better support
+
+## Migration
+
+If you were using this tool:
+1. Remove any references to `mcp-linear` from your setup
+2. Follow the official Cursor documentation to set up the new Linear integration
+3. Update your `.cursor/mcp.json` configuration accordingly
+
+---
+
+*This repository is archived for historical reference only.*
+
+
 # Linear MCP Server
 
 A Model Context Protocol (MCP) server that enables Linear issue management directly from Cursor's Composer feature.
